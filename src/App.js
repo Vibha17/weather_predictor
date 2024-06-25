@@ -9,23 +9,8 @@ const App = () => {
   const [selectedCity, setSelectedCity] = useState('');
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch(`http://dataservice.accuweather.com/locations/v1/topcities/50?apikey=${apiKey}`)
-      .then(response => response.json())
-      .then(data => {
-        setCities(data);
-      })
-      .catch(err => {
-        setError('Error fetching city list');
-      });
-  }, []);
-
   // useEffect(() => {
-  //   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-  //   const targetUrl = `http://dataservice.accuweather.com/locations/v1/topcities/150?apikey=${apiKey}`;
-  //   const fetchUrl = proxyUrl + targetUrl;
-
-  //   fetch(fetchUrl)
+  //   fetch(`http://dataservice.accuweather.com/locations/v1/topcities/50?apikey=${apiKey}`)
   //     .then(response => response.json())
   //     .then(data => {
   //       setCities(data);
@@ -33,10 +18,54 @@ const App = () => {
   //     .catch(err => {
   //       setError('Error fetching city list');
   //     });
-  // }, [apiKey]);
+  // }, []);
+
+  useEffect(() => {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const targetUrl = `http://dataservice.accuweather.com/locations/v1/topcities/150?apikey=${apiKey}`;
+    const fetchUrl = proxyUrl + targetUrl;
+
+    fetch(fetchUrl)
+      .then(response => response.json())
+      .then(data => {
+        setCities(data);
+      })
+      .catch(err => {
+        setError('Error fetching city list');
+      });
+  }, [apiKey]);
+
+  // const fetchWeather = (cityKey) => {
+  //   fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${cityKey}?apikey=${apiKey}`)
+  //     .then(response => response.json())
+  //     .then(weatherResponse => {
+  //       const cityData = cities.find(city => city.Key === cityKey);
+  //       setWeather({
+  //         city: cityData.LocalizedName,
+  //         country: cityData.Country.LocalizedName,
+  //         temperature: weatherResponse.DailyForecasts[0].Temperature,
+  //         condition: weatherResponse.Headline.Text,
+  //         icon: weatherResponse.DailyForecasts[0].Day.Icon,
+  //         day: weatherResponse.DailyForecasts[0].Day,
+  //         night: weatherResponse.DailyForecasts[0].Night,
+  //         headline: weatherResponse.Headline,
+  //         link: weatherResponse.Headline.Link
+          
+  //       });
+  //       setError(null);
+  //     })
+  //     .catch(err => {
+  //       setError('Error fetching data');
+  //       setWeather(null);
+  //     });
+  // };
 
   const fetchWeather = (cityKey) => {
-    fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${cityKey}?apikey=${apiKey}`)
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const targetUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/1day/${cityKey}?apikey=${apiKey}`;
+    const fetchUrl = proxyUrl + targetUrl;
+  
+    fetch(fetchUrl)
       .then(response => response.json())
       .then(weatherResponse => {
         const cityData = cities.find(city => city.Key === cityKey);
@@ -50,7 +79,6 @@ const App = () => {
           night: weatherResponse.DailyForecasts[0].Night,
           headline: weatherResponse.Headline,
           link: weatherResponse.Headline.Link
-          
         });
         setError(null);
       })
@@ -59,6 +87,7 @@ const App = () => {
         setWeather(null);
       });
   };
+  
 
   const handleCityChange = (event) => {
     const cityKey = event.target.value;
