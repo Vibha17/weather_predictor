@@ -20,6 +20,21 @@ const App = () => {
       });
   }, []);
 
+  // useEffect(() => {
+  //   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  //   const targetUrl = `http://dataservice.accuweather.com/locations/v1/topcities/150?apikey=${apiKey}`;
+  //   const fetchUrl = proxyUrl + targetUrl;
+
+  //   fetch(fetchUrl)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setCities(data);
+  //     })
+  //     .catch(err => {
+  //       setError('Error fetching city list');
+  //     });
+  // }, [apiKey]);
+
   const fetchWeather = (cityKey) => {
     fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/1day/${cityKey}?apikey=${apiKey}`)
       .then(response => response.json())
