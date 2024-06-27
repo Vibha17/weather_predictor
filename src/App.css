@@ -149,6 +149,10 @@ select:focus {
   color: white; 
 }
 
+.headline:hover{
+  border: 2px , black ,solid;
+}
+
 .headline p {
   margin: 5px 0;
   color: white;

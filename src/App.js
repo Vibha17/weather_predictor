@@ -15,7 +15,7 @@ const App = () => {
     // const fetchUrl = proxyUrl + targetUrl;
 
     // fetch(fetchUrl)
-    fetch(`http://dataservice.accuweather.com/locations/v1/topcities/50?apikey=${apiKey}`)
+    fetch(`http://dataservice.accuweather.com/locations/v1/topcities/150?apikey=${apiKey}`)
       .then(response => response.json())
       .then(data => {
         setCities(data);
